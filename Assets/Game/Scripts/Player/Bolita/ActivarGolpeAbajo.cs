@@ -19,6 +19,7 @@ public class ActivarGolpeAbajo : MonoBehaviour
 
     [Range(0, 5)]
     public float _raycastDistance = 4f;
+    public LayerMask _layer;
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class ActivarGolpeAbajo : MonoBehaviour
     {
         #region RayCast
         Physics2D.queriesStartInColliders = false;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down * 1, _raycastDistance);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down * 1, _raycastDistance, _layer);
 
         if(hit.collider == null)
             _golpe = true;

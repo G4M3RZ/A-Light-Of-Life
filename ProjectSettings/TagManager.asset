@@ -11,6 +11,11 @@ TagManager:
   - WallJump
   - ObjTransform
   - CM vcam
+  - Cuerda
+  - Resvaladiso
+  - Cuarto
+  - MirarAbajo
+  - Awa
   layers:
   - Default
   - TransparentFX
@@ -20,7 +25,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Solid
   - 
   - 
   - 
