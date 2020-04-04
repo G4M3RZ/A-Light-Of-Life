@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4502138959631054406}
   - component: {fileID: 4502138959631054401}
   - component: {fileID: 4502138959631054402}
+  - component: {fileID: 1882382387213662363}
   - component: {fileID: 4502138959631054400}
   m_Layer: 0
   m_Name: cehckpoint
@@ -122,8 +123,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _luz: {fileID: 7332820764668141310}
-  _checkpoint: {fileID: 4502138959631054400}
   _activar: 0
+--- !u!114 &1882382387213662363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502138959631054405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d955144c912e74cb4581f8ccd0bd45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &4502138959631054400
 Animator:
   serializedVersion: 3

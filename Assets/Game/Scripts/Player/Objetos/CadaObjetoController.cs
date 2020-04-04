@@ -33,7 +33,7 @@ public class CadaObjetoController : MonoBehaviour
     public float _normalVelocity, _slowVelocity;
     #endregion
 
-    public bool _canJump, _limitMove, _mayorMV, _centrarCam, _seeUpDown;
+    public bool _canJump, _limitMoves, _openVision, _camFly;
 
     void Start()
     {
@@ -55,13 +55,12 @@ public class CadaObjetoController : MonoBehaviour
     {
         _jump._canJump = _canJump;
         _jump._jumpForce = _jumpForce;
-        _rCam._changeCams = _mayorMV;
+        _rCam._changeCams = _openVision;
         _rCam._camaraSize = _camSize;
 
         Controller();
         LimitMoves();
         CentrarCam();
-        SeeUpDown();
     }
     void Controller()
     {
@@ -74,23 +73,22 @@ public class CadaObjetoController : MonoBehaviour
     }
     void LimitMoves()
     {
-        if (_limitMove && _jmp._grounded && Input.GetKey(KeyCode.DownArrow))
+        if (_limitMoves && _jmp._grounded && Input.GetKey(KeyCode.DownArrow))
             _pmv._moveSpeed = _slowVelocity;
         else
             _pmv._moveSpeed = _normalVelocity;
     }
     void CentrarCam()
     {
-        if (_centrarCam)
+        if (_camFly && !_rsp._restart)
+        {
             _tsp.m_DeadZoneHeight = 0;
-        else
-            _tsp.m_DeadZoneHeight = 0.4f;
-    }
-    void SeeUpDown()
-    {
-        if (_seeUpDown && !_rsp._restart)
             _tsp.m_LookaheadSmoothing = 30;
-        else 
+        }
+        else
+        {
+            _tsp.m_DeadZoneHeight = 0.4f;
             _tsp.m_LookaheadSmoothing = 10;
+        }
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class Pausa : MonoBehaviour {
 
     private bool _pausa;
-
     public GameObject _pausaBanner;
     public GameObject _fadeSalida;
     public GameObject Camera;
@@ -23,7 +22,6 @@ public class Pausa : MonoBehaviour {
     private float _timeToNewScene;
     private bool _nuevaAccion;
 
-	// Use this for initialization
 	void Start ()
     {
         _isPause = false;
@@ -34,7 +32,6 @@ public class Pausa : MonoBehaviour {
         _nuevaAccion = false;
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
         MenuPausa();

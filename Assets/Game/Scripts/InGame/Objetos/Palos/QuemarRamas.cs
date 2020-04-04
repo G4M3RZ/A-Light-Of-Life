@@ -22,7 +22,7 @@ public class QuemarRamas : MonoBehaviour
         {
             _burn = true;
             _collider.isTrigger = true;
-            _anim.SetBool("", _burn);
+            //_anim.SetBool("", _burn);
         }
     }
 }

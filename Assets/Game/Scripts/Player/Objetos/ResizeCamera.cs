@@ -6,13 +6,14 @@ public class ResizeCamera : MonoBehaviour
 {
     private CinemachineVirtualCamera _camara;
     private TrackerFocus _player;
+    [HideInInspector]
     public float _camaraSize = 5;
     private float _camUpdator;
+    [HideInInspector]
     public bool _changeCams;
 
     void Start()
     {
-        _camUpdator = _camaraSize;
         _camara = GameObject.FindGameObjectWithTag("CM vcam").GetComponent<CinemachineVirtualCamera>();
         _player = GetComponent<TrackerFocus>();
     }

@@ -13,13 +13,11 @@ public class LevelEnd : MonoBehaviour
 
     [Range(0,2)]
     public float _timeRecordando = 1.5f;
-    private float _timer;
 
     private bool _fadeActivate;
 
     private void Start()
     {
-        _timer = _timeRecordando;
         GetComponent<BoxCollider2D>().enabled = true;
     }
     private void Update()
@@ -36,13 +34,13 @@ public class LevelEnd : MonoBehaviour
         {
             GetComponent<ActivadorRecuerdo>()._activarRecuerdo = true;
             _bolita._stress = true;
+
             if (_timeRecordando <= 0)
             {
                 _videoRecuerdo.SetActive(true);
+
                 if (_videoRecuerdo.GetComponent<VideoPlayer>().isPaused)
-                {
                     SceneManager.LoadScene("Levels");
-                }
             }
             else
             {
