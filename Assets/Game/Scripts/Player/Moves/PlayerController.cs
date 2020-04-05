@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     private GameObject _transformDetect;
     private ObjDetector _transformNum;
     private RespawnsController _rsp;
+    public ParticleSystem _leaveFX;
     private bool _canTransform;
 
     private void Start()
@@ -58,6 +59,9 @@ public class PlayerController : MonoBehaviour {
             _transformNum = null;
             _playerNum = 1;
             PlayerTransform();
+
+            //soltar particulas
+            _leaveFX.Play();
         }
     }
 
@@ -76,7 +80,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.CompareTag("ObjTransform"))
             _canTransform = false;
-        if (other.CompareTag("Puzzle") && _playerNum != 1)
+        if ((other.CompareTag("Puzzle") || other.CompareTag("Cuarto")) && _playerNum != 1)
             ResetPlayer();
     }
 }
