@@ -6,7 +6,7 @@ using UnityEngine;
 public class TamañoNivel : MonoBehaviour
 {
     private BoxCollider2D _collider;
-    public GameObject[] _doors;
+    private List<GameObject> _doors;
     public bool _editable;
 
     #region Sliders
@@ -18,6 +18,13 @@ public class TamañoNivel : MonoBehaviour
 
     void Start()
     {
+        _doors = new List<GameObject>();
+
+        for (int i = 0; i < 2; i++)
+        {
+            _doors.Add(transform.GetChild(i).gameObject);
+        }
+
         _editable = false;
         _collider = GetComponent<BoxCollider2D>();
         _collider.isTrigger = true;

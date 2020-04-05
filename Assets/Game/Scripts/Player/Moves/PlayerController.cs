@@ -9,19 +9,24 @@ public class PlayerController : MonoBehaviour {
     public GameObject[] _objetosDeLuz;
     private GameObject _transformDetect;
     private ObjDetector _transformNum;
+    private RespawnsController _rsp;
     private bool _canTransform;
 
     private void Start()
     {
+        _rsp = GetComponent<RespawnsController>();
         PlayerTransform();
     }
     private void Update()
     {
         if(_canTransform && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.C)))
             PlayerTransform();
+
+        if (_rsp._restart)
+            ResetPlayer();
     }
 
-    void PlayerTransform()
+    private void PlayerTransform()
     {
         if(_transformNum != null)
             _playerNum = _transformNum._playerNum;
@@ -49,6 +54,7 @@ public class PlayerController : MonoBehaviour {
         {
             _transformDetect.GetComponent<SpriteRenderer>().enabled = true;
             _transformDetect.GetComponent<CircleCollider2D>().enabled = true;
+            _transformDetect = null;
             _transformNum = null;
             _playerNum = 1;
             PlayerTransform();
@@ -70,7 +76,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.CompareTag("ObjTransform"))
             _canTransform = false;
-        if (other.CompareTag("Puzzle"))
+        if (other.CompareTag("Puzzle") && _playerNum != 1)
             ResetPlayer();
     }
 }

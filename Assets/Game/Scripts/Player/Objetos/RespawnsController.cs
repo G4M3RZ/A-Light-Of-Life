@@ -11,7 +11,7 @@ public class RespawnsController : MonoBehaviour
     private int _num;
     [Range(0,1)]
     public float _startTimer;
-    private float _time;
+    private float _time, _time2;
     private Vector3 _startPos;
     private Rigidbody2D _playerRGB;
 
@@ -22,28 +22,35 @@ public class RespawnsController : MonoBehaviour
         _startPos = transform.position;
         _restart = false;
         _num = 0;
-        _time = _startTimer;
+        _time = _time2 = _startTimer;
     }
 
     private void FixedUpdate()
     {
         if(_restart)
         {
-            if (_num != 0)
-                transform.position = _checkPoints[_num - 1].transform.position;
-            else
-                transform.position = _startPos;
-
-            if (_time <= 0)
+            if(_time <= 0)
             {
-                _restart = false;
-                _time = _startTimer;
+                if (_num != 0)
+                    transform.position = _checkPoints[_num - 1].transform.position;
+                else
+                    transform.position = _startPos;
+
+                if (_time2 <= 0)
+                {
+                    _restart = false;
+                    _time = _time2 = _startTimer;
+                }
+                else
+                {
+                    _playerRGB.velocity = new Vector2(_playerRGB.velocity.x, 0);
+                    _time2 -= Time.deltaTime;
+                }
             }
             else
             {
-                _playerRGB.velocity = new Vector2(_playerRGB.velocity.x, 0);
                 _time -= Time.deltaTime;
-            }  
+            }
         }
     }
 

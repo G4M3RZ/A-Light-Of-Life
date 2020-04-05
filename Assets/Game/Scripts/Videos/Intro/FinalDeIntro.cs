@@ -11,12 +11,14 @@ public class FinalDeIntro : MonoBehaviour
     public float _initTimer = 1.5f;
     private float _timer;
     public GameObject _fadeExitScenePrefab;
-    public VideoPlayer _video;
+    private VideoPlayer _video;
 
     private void Start()
     {
         _activador = true;
         _timer = _initTimer;
+
+        _video = GetComponent<VideoPlayer>();
     }
     void Update()
     {
@@ -33,7 +35,7 @@ public class FinalDeIntro : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("Nivel-2");
+                SceneManager.LoadScene("Nivel-1");
             }
         }
     }

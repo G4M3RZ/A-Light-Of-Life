@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class ControllerPuzzle : MonoBehaviour
 {
-    public GameObject _puzzle;
-    public CerrarPuzzle _startDoor;
-    public GameObject[] _lights;
+    private GameObject _puzzle;
+    private CerrarPuzzle _startDoor;
     [Range(0,10)]
     public float _timeGone, _puzzleSizeCam;
     private float time;
     public bool _entrar,_needFocus;
+    public GameObject[] _lights;
 
     private void Start()
     {
-        if(_puzzle != null)
+        _puzzle = transform.GetChild(2).gameObject;
+        _startDoor = transform.GetChild(0).gameObject.GetComponent<CerrarPuzzle>();
+
+        if (_puzzle != null)
             _puzzle.SetActive(false);
     }
     private void Update()
