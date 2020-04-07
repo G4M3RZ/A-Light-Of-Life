@@ -5,125 +5,89 @@ using UnityEngine;
 
 public class Pausa : MonoBehaviour {
 
-    private bool _pausa;
-    public GameObject _pausaBanner;
     public GameObject _fadeSalida;
-    public GameObject Camera;
-
-    //public GameObject _audio;
-
-    private bool _levels;
-    private bool _exit;
-
+    private GameObject _cam, _pause;
+    public AudioNivel _audio;
     public bool _isPause;
+    private bool _pausa, _exit, _fadeExit, _nuevaAccion;
 
-    private bool _fadeExit;
-
-    private float _timeToNewScene;
-    private bool _nuevaAccion;
+    private float _timer;
+    private string _newScene;
 
 	void Start ()
     {
-        _isPause = false;
-        _levels = false;
-        _exit = false;
-        _pausa = false;
-        _timeToNewScene = 2.3f;
-        _nuevaAccion = false;
+        Cursor.visible = false;
+        _cam = GameObject.FindGameObjectWithTag("MainCamera");
+        _pause = transform.GetChild(0).GetChild(0).gameObject;
+        _isPause = _exit = _pausa = _nuevaAccion = false;
+        _timer = 2.3f;
+        _fadeExit = true;
     }
 	
 	void Update ()
     {
-        MenuPausa();
-        Levels();
-        ExitGame();
-
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
             _pausa = !_pausa;
-        }
+
+        MenuPausa();
+        NewScene();
     }
+
+    #region Buttons
+    public void ResumeButton()
+    {
+        _pausa = false;
+    }
+    public void SceneButton(string _sceneName)
+    {
+        _audio._activado = true;
+        _newScene = _sceneName;
+        _exit = true;
+    }
+    #endregion
+
     void MenuPausa()
     {
         if (_pausa && !_nuevaAccion)
         {
             _isPause = true;
-            _pausaBanner.SetActive(true);
+            _pause.SetActive(true);
             Time.timeScale = 0f;
             Cursor.visible = true;
         }
         else if (!_nuevaAccion)
         {
             _isPause = false;
-            _pausaBanner.SetActive(false);
+            _pause.SetActive(false);
             Time.timeScale = 1f;
             Cursor.visible = false;
         }
     }
-    public void ResumeButton()
-    {
-        _pausa = false;
-    }
-    public void LevelsPressButton()
-    {
-        //_audio.GetComponent<AudioNivel>()._activado = true;
-        _levels = true;
-        _fadeExit = true;
-    }
-    public void ExitPressButton()
-    {
-        //_audio.GetComponent<AudioNivel>()._activado = true;
-        _exit = true;
-        _fadeExit = true;
-    }
-    void Levels()
-    {
-        if (_levels)
-        {
-            _nuevaAccion = true;
-            if (_fadeExit)
-            {
-                GameObject objetoHijo = Instantiate(_fadeSalida, transform.position, transform.rotation) as GameObject;
-                objetoHijo.transform.parent = Camera.transform;
-                objetoHijo.transform.position = transform.position;
 
-                _fadeExit = false;
-            }
-            if (_timeToNewScene <= 0)
-            {
-                SceneManager.LoadScene("Levels");
-            }
-            else
-            {
-                _pausa = false;
-                Time.timeScale = 1f;
-                _timeToNewScene -= Time.deltaTime;
-            }
-        }
-    } 
-    void ExitGame()
+    void NewScene()
     {
         if (_exit)
         {
             _nuevaAccion = true;
+
             if (_fadeExit)
             {
                 GameObject objetoHijo = Instantiate(_fadeSalida, transform.position, transform.rotation) as GameObject;
-                objetoHijo.transform.parent = Camera.transform;
+                objetoHijo.transform.parent = _cam.transform;
                 objetoHijo.transform.position = transform.position;
 
                 _fadeExit = false;
             }
-            if (_timeToNewScene <= 0)
+            if (_timer <= 0)
             {
-                SceneManager.LoadScene("00-Menu");
+                SceneManager.LoadScene(_newScene);
             }
             else
             {
                 _pausa = false;
                 Time.timeScale = 1f;
-                _timeToNewScene -= Time.deltaTime;
+                _timer -= Time.deltaTime;
             }
         }
-    }
+    } 
 }

@@ -6,16 +6,13 @@ using UnityEngine;
 public class BotonesController : MonoBehaviour {
 
     public GameObject _fadeExitScene;
-    public LoadAndSaveLevel _start;
-    private bool _botonActivadoPlay, _botonActivadoLevels, _botonActivadoExit, _botonActivadoSecreto;
+    private LoadAndSaveLevel _lns;
+    private AudioManager _audio;
 
-    private bool _activarBoton;
-    private bool _cambio;
+    private bool _play, _levels, _exit, _activarBoton, _cambio;
 
-    public AudioManager _audio;
-
-    [Range(1,5)]
-    public int _nivelOnPlay = 1;
+    private int _nivelOnPlay = 1;
+    private string _scene;
 
     [Range(0,2)]
     public float _initTimerFade = 2f;
@@ -23,11 +20,12 @@ public class BotonesController : MonoBehaviour {
 
 	void Start ()
     {
-        _nivelOnPlay = _start.contadorDeNivel + 1;
+        Cursor.visible = true;
+        _audio = GameObject.FindGameObjectWithTag("SoundTruck").GetComponent<AudioManager>();
+        _lns = GetComponent<LoadAndSaveLevel>();
+        _nivelOnPlay = _lns.contadorDeNivel + 1;
         _timerFade = _initTimerFade;
-        _botonActivadoPlay = _botonActivadoLevels = _botonActivadoExit = _botonActivadoSecreto = false;
-        _activarBoton = false;
-        _cambio = false;
+        _play = _levels = _exit = _activarBoton = _cambio = false;
     }
 	
 	void Update ()
@@ -36,7 +34,7 @@ public class BotonesController : MonoBehaviour {
     }
     void ActivarBoton()
     {
-        if (_botonActivadoPlay)
+        if (_play)
         {
             _timerFade -= Time.deltaTime * 0.5;
             if (_activarBoton)
@@ -47,16 +45,12 @@ public class BotonesController : MonoBehaviour {
             if(_timerFade <= 0)
             {
                 if(_nivelOnPlay != 1)
-                {
                     SceneManager.LoadScene("Nivel-" + _nivelOnPlay);
-                }
                 else
-                {
                     SceneManager.LoadScene("Intro");
-                }
             }
         }
-        if (_botonActivadoLevels)
+        if (_levels)
         {
             _timerFade -= Time.deltaTime * 0.5;
             if (_activarBoton)
@@ -65,11 +59,9 @@ public class BotonesController : MonoBehaviour {
                 _activarBoton = false;
             }
             if (_timerFade <= 0)
-            {
-                SceneManager.LoadScene("Levels");
-            }
+                SceneManager.LoadScene(_scene);
         }
-        if (_botonActivadoExit)
+        if (_exit)
         {
             _timerFade -= Time.deltaTime * 0.5;
             if (_activarBoton)
@@ -78,61 +70,25 @@ public class BotonesController : MonoBehaviour {
                 _activarBoton = false;
             }
             if (_timerFade <= 0)
-            {
-                Debug.Log("cerrar juego");
                 Application.Quit();
-            }
-        }
-        if (_botonActivadoSecreto)
-        {
-            _timerFade -= Time.deltaTime * 0.5;
-            if (_activarBoton)
-            {
-                Instantiate(_fadeExitScene, transform.position, transform.localRotation);
-                _activarBoton = false;
-            }
-            if (_timerFade <= 0)
-            {
-                SceneManager.LoadScene("Creditos");
-            }
         }
     }
     public void BotonPlay()
     {
         if (!_cambio)
-        {
-            _audio._activado = true;
-            _botonActivadoPlay = true;
-            _activarBoton = true;
-            _cambio = true;
-        }
+            _audio._activado = _play = _activarBoton = _cambio = true;
     }
-    public void BotonLevels()
+    public void BotonScene(string _newScene)
     {
         if (!_cambio)
         {
-            _botonActivadoLevels = true;
-            _activarBoton = true;
-            _cambio = true;
+            _scene = _newScene;
+            _levels = _activarBoton = _cambio = true;
         }
     }
     public void BotonExit()
     {
         if (!_cambio)
-        {
-            _audio._activado = true;
-            _botonActivadoExit = true;
-            _activarBoton = true;
-            _cambio = true;
-        }
-    }
-    public void BotonSecreto()
-    {
-        if (!_cambio)
-        {
-            _botonActivadoSecreto = true;
-            _activarBoton = true;
-            _cambio = true;
-        }
+            _audio._activado = _exit = _activarBoton = _cambio = true;
     }
 }

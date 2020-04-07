@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class SelectorNivel : MonoBehaviour {
 
+    [Range(0,10)]
+    public int _limit;
+
     public GameObject _fadeExitScenePrefab;
+    [HideInInspector]
     public int _selectLevel;
 
     public GameObject Camera;
-
-    //public GameObject _audio;
+    private AudioManager _audio;
 
     private bool _activador, _goToMenu;
 
@@ -20,7 +23,8 @@ public class SelectorNivel : MonoBehaviour {
 
     void Start ()
     {
-        //_audio = GameObject.Find("Audio");
+        Cursor.visible = true;
+        _audio = GameObject.FindGameObjectWithTag("SoundTruck").GetComponent<AudioManager>();
         _activador = true;
         _goToMenu = false;
         _timer = _initTimer;
@@ -33,7 +37,7 @@ public class SelectorNivel : MonoBehaviour {
     }
     void SelectorDeNivel()
     {
-        if(_selectLevel != 0 && _selectLevel < 4)
+        if(_selectLevel != 0 && _selectLevel <= _limit)
         {
             Accion();
         }
@@ -43,10 +47,10 @@ public class SelectorNivel : MonoBehaviour {
         if(_timer >= 0)
         {
             _timer -= Time.deltaTime * 0.5f;
-            /*if(_audio != null)
-            {
-                //_audio.GetComponent<AudioManager>()._activado = true;
-            }*/
+
+            if(_audio != null)
+                _audio._activado = true;
+
             if(_activador)
             {
                 GameObject objetoHijo = Instantiate(_fadeExitScenePrefab, transform.position, transform.rotation) as GameObject;
@@ -58,13 +62,9 @@ public class SelectorNivel : MonoBehaviour {
         else
         {
             if(_selectLevel != 1)
-            {
                 SceneManager.LoadScene("Nivel-" + _selectLevel);
-            }
             else
-            {
                 SceneManager.LoadScene("Intro");
-            }
         }
     }
     public void Menu()

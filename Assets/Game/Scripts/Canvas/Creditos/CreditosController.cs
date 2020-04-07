@@ -15,14 +15,13 @@ public class CreditosController : MonoBehaviour {
 
     private double _timerFade;
 
-    // Use this for initialization
     void Start ()
     {
+        Cursor.visible = true;
         _botonActivado = _botonExit = false;
         _timerFade = _initTimerFade;
 	}
 	
-	// Update is called once per frame
 	void Update ()
     {
         ActivarBoton();
@@ -45,7 +44,6 @@ public class CreditosController : MonoBehaviour {
     }
     public void BotonExit()
     {
-        _botonExit = true;
-        _botonActivado = true;
+        _botonExit = _botonActivado = true;
     }
 }

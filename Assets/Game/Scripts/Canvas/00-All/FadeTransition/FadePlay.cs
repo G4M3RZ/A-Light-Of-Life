@@ -23,12 +23,8 @@ public class FadePlay : MonoBehaviour {
         ColorInicial.color = new Color(0,0,0,alpha);
 
         if (alpha >= 0)
-        {
             alpha -= Speed * Time.deltaTime;
-        }
         else
-        {
             Destroy(this.gameObject);
-        }
 	}
 }

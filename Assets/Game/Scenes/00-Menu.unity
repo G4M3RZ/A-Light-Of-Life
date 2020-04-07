@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 25483168}
   m_Layer: 0
   m_Name: SoundTrack
-  m_TagString: Untagged
+  m_TagString: SoundTruck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,7 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1888f06a77589459e7ac05867cf45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audio: {fileID: 25483168}
   _activado: 0
 --- !u!82 &25483168
 AudioSource:
@@ -386,7 +385,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1f4854db769265b41a48b5304c065824, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5237,14 +5236,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1699308622}
-        m_MethodName: BotonSecreto
-        m_Mode: 1
+        m_MethodName: BotonScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Creditos
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &363387176
@@ -5691,14 +5690,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1699308622}
-        m_MethodName: BotonLevels
-        m_Mode: 1
+        m_MethodName: BotonScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Levels
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1005010801
@@ -6026,9 +6025,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fadeExitScene: {fileID: 8953260382863561544, guid: b324492786ec06446bb3e76e545a601f,
     type: 3}
-  _start: {fileID: 1699308623}
-  _audio: {fileID: 25483167}
-  _nivelOnPlay: 1
   _initTimerFade: 1.5
 --- !u!114 &1699308623
 MonoBehaviour:

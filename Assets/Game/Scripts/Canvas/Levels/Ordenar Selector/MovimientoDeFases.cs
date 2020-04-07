@@ -40,8 +40,8 @@ public class MovimientoDeFases : MonoBehaviour
     }
     public void Right()
     {
-        if (_faseNum >= _fases._fases.Length - 1)
-            _faseNum = _fases._fases.Length - 1;
+        if (_faseNum >= _fases._fasesLenght - 1)
+            _faseNum = _fases._fasesLenght - 1;
         else
         {
             _faseNum++;

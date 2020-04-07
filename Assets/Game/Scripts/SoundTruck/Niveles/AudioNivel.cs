@@ -4,33 +4,31 @@ using UnityEngine;
 
 public class AudioNivel : MonoBehaviour {
 
-    public AudioSource _audio;
-    public float _audioValue;
-
+    private AudioSource _audio;
+    private float _audioValue;
+    [HideInInspector]
     public bool _activado;
 
     void Start ()
     {
-        _audioValue = 1;
+        _audio = GetComponent<AudioSource>();
+        _audioValue = 0.5f;
     }
 	
 	void Update ()
     {
-        _audio.volume = _audioValue;
         Botones();
     }
     void Botones()
     {
+        _audio.volume = _audioValue;
+
         if (_activado)
         {
             if (_audioValue <= 0)
-            {
                 Destroy(this.gameObject);
-            }
             else
-            {
-                _audioValue -= Time.deltaTime * 0.5f;
-            }
+                _audioValue -= Time.deltaTime / 3;
         }
     }
 }
