@@ -12,7 +12,7 @@ public class SelectorNivel : MonoBehaviour {
     [HideInInspector]
     public int _selectLevel;
 
-    public GameObject Camera;
+    private GameObject _cam;
     private AudioManager _audio;
 
     private bool _activador, _goToMenu;
@@ -24,6 +24,7 @@ public class SelectorNivel : MonoBehaviour {
     void Start ()
     {
         Cursor.visible = true;
+        _cam = GameObject.FindGameObjectWithTag("MainCamera");
         _audio = GameObject.FindGameObjectWithTag("SoundTruck").GetComponent<AudioManager>();
         _activador = true;
         _goToMenu = false;
@@ -54,7 +55,7 @@ public class SelectorNivel : MonoBehaviour {
             if(_activador)
             {
                 GameObject objetoHijo = Instantiate(_fadeExitScenePrefab, transform.position, transform.rotation) as GameObject;
-                objetoHijo.transform.parent = Camera.transform;
+                objetoHijo.transform.parent = _cam.transform;
                 objetoHijo.transform.position = transform.position;
                 _activador = false;
             }
@@ -81,7 +82,7 @@ public class SelectorNivel : MonoBehaviour {
                 if (_activador)
                 {
                     GameObject objetoHijo = Instantiate(_fadeExitScenePrefab, transform.position, transform.rotation) as GameObject;
-                    objetoHijo.transform.parent = Camera.transform;
+                    objetoHijo.transform.parent = _cam.transform;
                     objetoHijo.transform.position = transform.position;
                     _activador = false;
                 }

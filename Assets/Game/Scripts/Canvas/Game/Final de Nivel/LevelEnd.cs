@@ -8,24 +8,24 @@ public class LevelEnd : MonoBehaviour
 {
     public bool _activarFinal;
     public AnimationControllerBolita _bolita;
-    public GameObject _videoRecuerdo;
-    public LoadAndSaveLevel _loadAndSave;
+    private VideoPlayer _videoRecuerdo;
+    private LoadAndSaveLevel _loadAndSave;
+    private AudioNivel _audio;
 
     [Range(0,2)]
     public float _timeRecordando = 1.5f;
 
-    private bool _fadeActivate;
-
     private void Start()
     {
+        _videoRecuerdo = GetComponent<VideoPlayer>();
+        _loadAndSave = GetComponent<LoadAndSaveLevel>();
+        _audio = GameObject.FindGameObjectWithTag("SoundTruck").GetComponent<AudioNivel>();
         GetComponent<BoxCollider2D>().enabled = true;
     }
     private void Update()
     {
         if (_videoRecuerdo != null)
-        {
             BackToLevels();
-        }
     }
 
     void BackToLevels()
@@ -37,9 +37,9 @@ public class LevelEnd : MonoBehaviour
 
             if (_timeRecordando <= 0)
             {
-                _videoRecuerdo.SetActive(true);
+                _videoRecuerdo.enabled = true;
 
-                if (_videoRecuerdo.GetComponent<VideoPlayer>().isPaused)
+                if (_videoRecuerdo.isPaused)
                     SceneManager.LoadScene("Levels");
             }
             else
@@ -49,7 +49,7 @@ public class LevelEnd : MonoBehaviour
         }
         else
         {
-            _videoRecuerdo.SetActive(false);
+            _videoRecuerdo.enabled = false;
             _bolita._stress = false;
         }
     }
@@ -58,9 +58,8 @@ public class LevelEnd : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            //_audio.GetComponent<AudioNivel>()._activado = true;
+            _audio._activado = _activarFinal = true;
             _loadAndSave.DesbloquearNivel();
-            _activarFinal = true;
             GetComponent<BoxCollider2D>().enabled = false;
         }
     }

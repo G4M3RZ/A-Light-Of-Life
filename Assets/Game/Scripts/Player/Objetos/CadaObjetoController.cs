@@ -64,6 +64,8 @@ public class CadaObjetoController : MonoBehaviour
     }
     void Controller()
     {
+        //tiene que cambiar si o si :u
+
         if (Input.GetAxis("Vertical") < 0)
             _rb.gravityScale = _downGravity;
         else if (Input.GetAxis("Vertical") == 0)

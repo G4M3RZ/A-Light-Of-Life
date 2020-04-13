@@ -7,7 +7,7 @@ public class Pausa : MonoBehaviour {
 
     public GameObject _fadeSalida;
     private GameObject _cam, _pause;
-    public AudioNivel _audio;
+    private AudioNivel _audio;
     public bool _isPause;
     private bool _pausa, _exit, _fadeExit, _nuevaAccion;
 
@@ -19,6 +19,7 @@ public class Pausa : MonoBehaviour {
         Cursor.visible = false;
         _cam = GameObject.FindGameObjectWithTag("MainCamera");
         _pause = transform.GetChild(0).GetChild(0).gameObject;
+        _audio = GameObject.FindGameObjectWithTag("SoundTruck").GetComponent<AudioNivel>();
         _isPause = _exit = _pausa = _nuevaAccion = false;
         _timer = 2.3f;
         _fadeExit = true;

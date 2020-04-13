@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class ActivarCheckpoint : MonoBehaviour
 {
-    public GameObject _luz;
+    private GameObject _luz;
     private Animator _checkpoint;
     private LightSmartRender _lsr;
     public bool _activar;
 
+    private void Awake()
+    {
+        _luz = transform.GetChild(0).gameObject;
+    }
     void Start()
     {
         _activar = false;

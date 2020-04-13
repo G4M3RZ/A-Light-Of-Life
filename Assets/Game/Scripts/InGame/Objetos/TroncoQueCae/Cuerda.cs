@@ -7,38 +7,42 @@ public class Cuerda : MonoBehaviour {
     public Rigidbody2D _puente;
     public PuzzleSolved _puerta;
     private PlayerController _player;
-    private Animator _soga;
+
+    private GameObject _particles;
+    private ParticleSystem _fire;
+    private SpriteRenderer _sprite;
 
     public float _timeToLetGo;
     private float _letGo;
-    private bool _sogaCortada, _sogaBurn;
+    private bool _sogaCortada;
 
 	void Start ()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        _soga = GetComponent<Animator>();
         _puente.bodyType = RigidbodyType2D.Static;
+        _particles = transform.GetChild(0).gameObject;
+        _particles.SetActive(false);
+        _fire = _particles.GetComponent<ParticleSystem>();
+        _sprite = GetComponent<SpriteRenderer>();
 
         _letGo = _timeToLetGo;
         _sogaCortada = false;
-        _sogaBurn = false;
     }
 	
 	void Update ()
     {
-        _soga.SetBool("_active", _sogaBurn);
-
         if (_sogaCortada)
         {
-            _sogaBurn = true;
             _puerta._puzzleSolved = true;
+            _particles.SetActive(true);
+
+            if (_fire.particleCount >= 15)
+                _sprite.enabled = false;
+            else if (_fire.isPaused)
+                Destroy(this.gameObject);
 
             if (_letGo <= 0)
-            {
                 _puente.bodyType = RigidbodyType2D.Dynamic;
-                Destroy(this.gameObject, 2.5f);
-                _sogaCortada = false;
-            }
             else
                 _letGo -= Time.deltaTime;
         }

@@ -15,7 +15,7 @@ public class ActivarGolpeAbajo : MonoBehaviour
 
     [HideInInspector]
     public bool _golpe, _move;
-    private GameObject _sueloG;
+    private GameObject _suelo;
 
     [Range(0, 5)]
     public float _raycastDistance = 4f;
@@ -40,7 +40,7 @@ public class ActivarGolpeAbajo : MonoBehaviour
         if(hit.collider == null)
             _golpe = true;
         else
-            _sueloG = hit.collider.gameObject;
+            _suelo = hit.collider.gameObject;
 
         if(_rgb.gravityScale != _bolita._downGravity)
             _golpe = false;
@@ -65,7 +65,7 @@ public class ActivarGolpeAbajo : MonoBehaviour
             _golpe = false;
 
             /*if (other.gameObject.tag == "Pilar")
-                _sueloG.GetComponent<Pilar>()._abajo = true;*/
+                _suelo.GetComponent<Pilar>()._abajo = true;*/
         }
     }
     private void OnDrawGizmos()

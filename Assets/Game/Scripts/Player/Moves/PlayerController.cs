@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
         _canTransform = false;
     }
 
-    private void ResetPlayer()
+    public void ResetPlayer()
     {
         if (_transformDetect != null)
         {
