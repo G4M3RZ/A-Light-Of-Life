@@ -5,11 +5,13 @@ using UnityEngine;
 public class Lamp : MonoBehaviour {
 
     public GameObject _luz;
+    private LightSmartRender _lsr;
     [HideInInspector]
     public bool _lightOn, _lightEnable;
 
     void Start ()
     {
+        _lsr = GetComponent<LightSmartRender>();
         _lightOn = false;
     }
 	
@@ -19,6 +21,7 @@ public class Lamp : MonoBehaviour {
         {
             _luz.SetActive(true);
             _lightOn = true;
+            _lsr._active = true;
         }
 	}
     private void OnTriggerEnter2D(Collider2D other)

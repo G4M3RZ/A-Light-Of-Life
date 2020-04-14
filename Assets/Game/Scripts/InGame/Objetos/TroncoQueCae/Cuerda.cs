@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Cuerda : MonoBehaviour {
 
-    public Rigidbody2D _puente;
-    public PuzzleSolved _puerta;
     private PlayerController _player;
+    public Rigidbody2D _catchObject;
+    public PuzzleSolved _puerta;
 
     private GameObject _particles;
     private ParticleSystem _fire;
@@ -19,7 +19,7 @@ public class Cuerda : MonoBehaviour {
 	void Start ()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        _puente.bodyType = RigidbodyType2D.Static;
+        _catchObject.bodyType = RigidbodyType2D.Static;
         _particles = transform.GetChild(0).gameObject;
         _particles.SetActive(false);
         _fire = _particles.GetComponent<ParticleSystem>();
@@ -33,7 +33,9 @@ public class Cuerda : MonoBehaviour {
     {
         if (_sogaCortada)
         {
-            _puerta._puzzleSolved = true;
+            if(_puerta != null)
+                _puerta._puzzleSolved = true;
+            
             _particles.SetActive(true);
 
             if (_fire.particleCount >= 15)
@@ -42,14 +44,14 @@ public class Cuerda : MonoBehaviour {
                 Destroy(this.gameObject);
 
             if (_letGo <= 0)
-                _puente.bodyType = RigidbodyType2D.Dynamic;
+                _catchObject.bodyType = RigidbodyType2D.Dynamic;
             else
                 _letGo -= Time.deltaTime;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player") && _player._playerNum == 2)
+        if(other.CompareTag("Player") && _player._playerNum != 1)
             _sogaCortada = true;
     }
 }

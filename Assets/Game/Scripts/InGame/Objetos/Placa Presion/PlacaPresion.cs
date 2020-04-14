@@ -4,46 +4,36 @@ using UnityEngine;
 
 public class PlacaPresion : MonoBehaviour
 {
-    public bool _activado;
-    public GameObject _luz;
+    public CageController _jaula;
+    private GameObject _luz;
 
-    // Start is called before the first frame update
     void Start()
     {
-        _activado = false;
+        _luz = transform.GetChild(0).gameObject;
+        _luz.SetActive(false);
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_activado)
+        if (!other.CompareTag("Suelo"))
         {
             _luz.SetActive(true);
+            _jaula._subir = true;
         }
-        else
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (!other.CompareTag("Suelo"))
+        {
+            _luz.SetActive(true);
+            _jaula._subir = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Suelo"))
         {
             _luz.SetActive(false);
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag != "Suelo")
-        {
-            _activado = true;
-        }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.tag != "Suelo")
-        {
-            _activado = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.tag != "Suelo")
-        {
-            _activado = false;
+            _jaula._subir = false;
         }
     }
 }

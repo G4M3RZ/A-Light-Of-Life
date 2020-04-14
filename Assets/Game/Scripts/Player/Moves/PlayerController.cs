@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    [Range(1, 5)]
+    [HideInInspector]
     public int _playerNum = 1;
-    public GameObject[] _objetosDeLuz;
+    [Range(0,5)]
+    public int _playerLenth;
+    public List<GameObject> _lightObjects;
+    
     private GameObject _transformDetect;
     private ObjDetector _transformNum;
     private RespawnsController _rsp;
@@ -15,6 +18,14 @@ public class PlayerController : MonoBehaviour {
 
     private void Start()
     {
+        for (int i = 0; i < _playerLenth; i++)
+        {
+            if (transform.GetChild(i) != null)
+            {
+                _lightObjects.Add(transform.GetChild(i).gameObject);
+            }
+        }
+
         _rsp = GetComponent<RespawnsController>();
         PlayerTransform();
     }
@@ -32,12 +43,12 @@ public class PlayerController : MonoBehaviour {
         if(_transformNum != null)
             _playerNum = _transformNum._playerNum;
 
-        for (int i = 0; i < _objetosDeLuz.Length; i++)
+        for (int i = 0; i < _lightObjects.Count; i++)
         {
             if (i == _playerNum - 1)
-                _objetosDeLuz[i].SetActive(true);
+                _lightObjects[i].SetActive(true);
             else
-                _objetosDeLuz[i].SetActive(false);
+                _lightObjects[i].SetActive(false);
         }
 
         if(_transformDetect != null)

@@ -32,7 +32,7 @@ public class CadaObjetoController : MonoBehaviour
     #endregion
 
     public bool _canJump, _limitMoves, _openVision, _camFly;
-    private float _lht, _lhs;
+    private static float _lht, _lhs;
 
     void Start()
     {
@@ -99,9 +99,5 @@ public class CadaObjetoController : MonoBehaviour
             _lht = (_lht > 0) ? _lht -= Time.deltaTime : _lht = 0;
             _lhs = (_lhs > 10) ? _lhs -= Time.deltaTime * 100 : _lhs = 10;
         }
-    }
-    private void OnBecameVisible()
-    {
-        _lht = _lhs = 0;
     }
 }

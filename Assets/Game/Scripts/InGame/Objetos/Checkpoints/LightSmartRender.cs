@@ -10,7 +10,7 @@ public class LightSmartRender : MonoBehaviour
 
     private void Start()
     {
-        _light = this.gameObject.transform.GetChild(0).gameObject;
+        _light = transform.GetChild(0).gameObject;
     }
 
     private void OnBecameVisible()

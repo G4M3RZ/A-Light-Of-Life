@@ -12,6 +12,7 @@ public class JumpController : MonoBehaviour {
     [Range(0, 5)]
     public float _raycastDistance = 4f;
     private Vector3 _izq, _der;
+    public LayerMask _contacto;
 
     void Start()
     {
@@ -30,8 +31,8 @@ public class JumpController : MonoBehaviour {
         _der = new Vector3(transform.position.x + 0.6f, transform.position.y, 0f);
 
         Physics2D.queriesStartInColliders = false;
-        RaycastHit2D hit = Physics2D.Raycast(_izq, Vector2.down * 1, _raycastDistance);
-        RaycastHit2D hit2 = Physics2D.Raycast(_der, Vector2.down * 1, _raycastDistance);
+        RaycastHit2D hit = Physics2D.Raycast(_izq, Vector2.down * 1, _raycastDistance, _contacto);
+        RaycastHit2D hit2 = Physics2D.Raycast(_der, Vector2.down * 1, _raycastDistance, _contacto);
 
         #region HitRaycast
         if (hit.collider != null)

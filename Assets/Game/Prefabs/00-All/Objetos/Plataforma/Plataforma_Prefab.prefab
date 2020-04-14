@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5172462971505615978}
   - component: {fileID: 5172462971505615980}
   - component: {fileID: 5172462971505615981}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plataforma_Prefab
   m_TagString: Suelo
   m_Icon: {fileID: 0}

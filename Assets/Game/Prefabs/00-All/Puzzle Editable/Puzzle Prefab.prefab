@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 838291607395487747}
   - component: {fileID: 6304875623411290151}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Puerta 1
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 838291608066747692}
   - component: {fileID: 7046021585144044971}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Puerta 2
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -139,13 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e00f28839bfc844385f5d390cfb8977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _puzzle: {fileID: 0}
-  _startDoor: {fileID: 6304875623411290151}
-  _lights: []
   _timeGone: 5
   _puzzleSizeCam: 5
   _entrar: 0
   _needFocus: 0
+  _lights: []
 --- !u!114 &838291608525904733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,9 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c81d7bfc18146454dafba08d9e516c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doors:
-  - {fileID: 838291607395487746}
-  - {fileID: 838291608066747691}
   _editable: 0
   "_tama\xF1oX": 14
   "_tama\xF1oY": 10
@@ -203,7 +198,7 @@ GameObject:
   - component: {fileID: 1082872749714343413}
   - component: {fileID: 6183676254669725870}
   - component: {fileID: 3689138592826449087}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Puerta final
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +304,7 @@ GameObject:
   - component: {fileID: 3785624724025522796}
   - component: {fileID: 3300188730303330608}
   - component: {fileID: 2644546244359926930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Puerta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
