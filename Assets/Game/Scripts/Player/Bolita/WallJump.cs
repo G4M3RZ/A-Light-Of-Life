@@ -11,9 +11,7 @@ public class WallJump : MonoBehaviour
     [Range(0,2)]
     public float _raycastDistance = 1f;
     [Range(1,5)]
-    public float _speed = 2f;
-    [Range(1,5)]
-    public float _jumpForce = 3;
+    public float _speed = 2f, _jumpForce = 3f;
 
     void Start()
     {

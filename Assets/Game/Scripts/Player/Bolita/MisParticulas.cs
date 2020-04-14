@@ -5,7 +5,6 @@ using UnityEngine;
 public class MisParticulas : MonoBehaviour
 {
     public JumpController _jump;
-
     public ParticleSystem _particulas;
 
     public bool _activar;

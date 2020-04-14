@@ -53,15 +53,14 @@ public class PlayerController : MonoBehaviour {
     {
         if (_transformDetect != null)
         {
+            Instantiate(_leaveFX, transform.position, transform.rotation);
+
             _transformDetect.GetComponent<SpriteRenderer>().enabled = true;
             _transformDetect.GetComponent<CircleCollider2D>().enabled = true;
             _transformDetect = null;
             _transformNum = null;
             _playerNum = 1;
             PlayerTransform();
-
-            //soltar particulas
-            _leaveFX.Play();
         }
     }
 

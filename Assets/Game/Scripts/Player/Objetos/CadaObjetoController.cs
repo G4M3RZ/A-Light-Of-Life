@@ -21,12 +21,10 @@ public class CadaObjetoController : MonoBehaviour
     #region Sliders
     [Range(5, 10)]
     public float _camSize = 5;
-    [Range(-1,0)]
-    public float _upGravity;
-    [Range(-1,2)]
+    [Range(-1, 2)]
     public float _normalGravity = 1;
     [Range(0,3)]
-    public float _downGravity;
+    public float _upDownForce;
     [Range(0, 30)]
     public float _jumpForce = 19;
     [Range(0, 10)]
@@ -34,6 +32,7 @@ public class CadaObjetoController : MonoBehaviour
     #endregion
 
     public bool _canJump, _limitMoves, _openVision, _camFly;
+    private float _lht, _lhs;
 
     void Start()
     {
@@ -64,33 +63,45 @@ public class CadaObjetoController : MonoBehaviour
     }
     void Controller()
     {
-        //tiene que cambiar si o si :u
-
-        if (Input.GetAxis("Vertical") < 0)
-            _rb.gravityScale = _downGravity;
-        else if (Input.GetAxis("Vertical") == 0)
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            _rb.gravityScale = _upDownForce;
+        else
             _rb.gravityScale = _normalGravity;
-        else if (!_canJump && Input.GetAxis("Vertical") > 0)
-            _rb.gravityScale = _upGravity;
+
+        if (!_canJump && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)))
+            _rb.gravityScale = -_upDownForce;
     }
     void LimitMoves()
     {
-        if (_limitMoves && _jmp._grounded && Input.GetKey(KeyCode.DownArrow))
+        if (_limitMoves && _jmp._grounded && (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)))
             _pmv._moveSpeed = _slowVelocity;
         else
             _pmv._moveSpeed = _normalVelocity;
     }
     void CentrarCam()
     {
+        _tsp.m_LookaheadTime = _lht;
+        _tsp.m_LookaheadSmoothing = _lhs;
+
         if (_camFly && !_rsp._restart)
         {
             _tsp.m_DeadZoneHeight = 0;
-            _tsp.m_LookaheadSmoothing = 30;
+            _tsp.m_LookaheadIgnoreY = false;
+
+            _lht = (_lht < 0.5f) ? _lht += Time.deltaTime : _lht = 0.5f;
+            _lhs = (_lhs < 30) ? _lhs += Time.deltaTime * 100 : _lhs = 30;
         }
         else
         {
             _tsp.m_DeadZoneHeight = 0.4f;
-            _tsp.m_LookaheadSmoothing = 10;
+            _tsp.m_LookaheadIgnoreY = true;
+
+            _lht = (_lht > 0) ? _lht -= Time.deltaTime : _lht = 0;
+            _lhs = (_lhs > 10) ? _lhs -= Time.deltaTime * 100 : _lhs = 10;
         }
+    }
+    private void OnBecameVisible()
+    {
+        _lht = _lhs = 0;
     }
 }

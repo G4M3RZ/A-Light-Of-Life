@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class AnimationControllerBolita : MonoBehaviour
 {
-    private Animator _bolita;
+    private GameObject _player;
     private JumpController _jmp;
     private RespawnsController _rsp;
+    private Animator _bolita;
     private bool _jump, _down, _dead;
     public bool _stress;
 
     void Start()
     {
-        _jmp = GameObject.FindGameObjectWithTag("Player").GetComponent<JumpController>();
-        _rsp = GameObject.FindGameObjectWithTag("Player").GetComponent<RespawnsController>();
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _jmp = _player.GetComponent<JumpController>();
+        _rsp = _player.GetComponent<RespawnsController>();
         _bolita = GetComponent<Animator>();
     }
 

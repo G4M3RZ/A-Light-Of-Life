@@ -4,15 +4,13 @@ public class JumpController : MonoBehaviour {
 
     [Range(0, 30)]
     public float _jumpForce;
-
-    public bool _grounded;
-    public bool _canJump;
+    [HideInInspector]
+    public bool _grounded, _canJump;
 
     public Rigidbody2D rgbd;
 
     [Range(0, 5)]
     public float _raycastDistance = 4f;
-
     private Vector3 _izq, _der;
 
     void Start()
@@ -25,6 +23,7 @@ public class JumpController : MonoBehaviour {
     {
         SimuladorGravedad();
     }
+
     void SimuladorGravedad()
     {
         _izq = new Vector3(transform.position.x - 0.6f, transform.position.y, 0f);
@@ -38,21 +37,15 @@ public class JumpController : MonoBehaviour {
         if (hit.collider != null)
         {
             if(hit.collider.tag == "Suelo" || hit.collider.tag == "WallJump" || hit.collider.tag == "Resvaladiso")
-            {
                 _grounded = true;
-            }
         }
         else if (hit2.collider != null)
         {
             if (hit2.collider.tag == "Suelo" || hit2.collider.tag == "WallJump" || hit2.collider.tag == "Resvaladiso")
-            {
                 _grounded = true;
-            }
         }
         else
-        {
             _grounded = false;
-        }
         #endregion
 
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && _grounded && _canJump)
@@ -61,10 +54,11 @@ public class JumpController : MonoBehaviour {
             _grounded = false;
         }
     }
-    private void OnDrawGizmos()
+
+    /*private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(_izq, _izq + Vector3.down * 1 * _raycastDistance);
         Gizmos.DrawLine(_der, _der + Vector3.down * 1 * _raycastDistance);
-    }
+    }*/
 }

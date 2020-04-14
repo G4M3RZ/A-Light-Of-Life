@@ -24,15 +24,11 @@ public class Lamp : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
-        {
             _lightEnable = true;
-        }
     }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-        {
             _lightEnable = false;
-        }
     }
 }
