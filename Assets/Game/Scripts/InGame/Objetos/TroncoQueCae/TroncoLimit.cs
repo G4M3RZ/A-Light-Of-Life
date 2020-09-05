@@ -1,21 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TroncoLimit : MonoBehaviour
 {
+    [Range(0, 50)]
+    public float _limit;
     private Rigidbody2D _rgb;
-    public GameObject _limit;
 
-    private void Start()
+    private void Awake()
     {
         _rgb = GetComponent<Rigidbody2D>();
     }
     void Update()
     {
-        if(transform.position.y <= _limit.transform.position.y)
-        {
+        if(transform.localPosition.y <= -_limit)
             _rgb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
     }
 }

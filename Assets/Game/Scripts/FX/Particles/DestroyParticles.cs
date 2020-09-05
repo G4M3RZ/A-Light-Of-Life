@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DestroyParticles : MonoBehaviour
 {
@@ -9,6 +7,6 @@ public class DestroyParticles : MonoBehaviour
     private void Awake()
     {
         _particles = GetComponent<ParticleSystem>();
-        Destroy(this.gameObject, _particles.startLifetime);
+        Destroy(this.gameObject, _particles.main.startLifetime.constant);
     }
 }

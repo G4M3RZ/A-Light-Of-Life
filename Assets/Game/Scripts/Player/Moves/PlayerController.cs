@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     
     private GameObject _transformDetect;
     private ObjDetector _transformNum;
+    private Rigidbody2D _rgb;
     private RespawnsController _rsp;
     public ParticleSystem _leaveFX;
     private bool _canTransform;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
+        _rgb = GetComponent<Rigidbody2D>();
         _rsp = GetComponent<RespawnsController>();
         PlayerTransform();
     }
@@ -40,7 +42,7 @@ public class PlayerController : MonoBehaviour {
 
     private void PlayerTransform()
     {
-        if(_transformNum != null)
+        if (_transformNum != null)
             _playerNum = _transformNum._playerNum;
 
         for (int i = 0; i < _lightObjects.Count; i++)
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         _canTransform = false;
+        _rgb.velocity = new Vector2(_rgb.velocity.x, 0);
     }
 
     public void ResetPlayer()

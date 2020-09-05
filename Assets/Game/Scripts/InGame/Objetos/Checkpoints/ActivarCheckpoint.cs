@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ActivarCheckpoint : MonoBehaviour
 {
@@ -19,7 +17,6 @@ public class ActivarCheckpoint : MonoBehaviour
         _luz.SetActive(false);
         _checkpoint = GetComponent<Animator>();
         _lsr = GetComponent<LightSmartRender>();
-        _lsr.enabled = false;
     }
     private void Update()
     {
@@ -28,7 +25,6 @@ public class ActivarCheckpoint : MonoBehaviour
         if (_activar)
         {
             _luz.SetActive(true);
-            _lsr.enabled = true;
             _lsr._active = true;
             Destroy(this);
         }

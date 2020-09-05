@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LightSmartRender : MonoBehaviour
 {
@@ -8,11 +6,10 @@ public class LightSmartRender : MonoBehaviour
     public bool _active;
     private GameObject _light;
 
-    private void Start()
+    private void Awake()
     {
         _light = transform.GetChild(0).gameObject;
     }
-
     private void OnBecameVisible()
     {
         if(_active && _light != null)

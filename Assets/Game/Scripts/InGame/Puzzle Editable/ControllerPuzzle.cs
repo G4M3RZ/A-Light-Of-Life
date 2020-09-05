@@ -7,49 +7,29 @@ public class ControllerPuzzle : MonoBehaviour
     private GameObject _puzzle;
     private CerrarPuzzle _startDoor;
     [Range(0,10)]
-    public float _timeGone, _puzzleSizeCam;
-    private float time;
+    public float _puzzleSizeCam;
     public bool _entrar,_needFocus;
-    public GameObject[] _lights;
 
-    private void Start()
+    private void Awake()
     {
         _puzzle = transform.GetChild(2).gameObject;
+        _puzzle.SetActive(false);
+    }
+    private void Start()
+    {
         _startDoor = transform.GetChild(0).gameObject.GetComponent<CerrarPuzzle>();
-
-        if (_puzzle != null)
-            _puzzle.SetActive(false);
     }
     private void Update()
     {
-        PlayerInside(_entrar);
-    }
-    void PlayerInside(bool playerIn)
-    {
-        _startDoor._playerIn = playerIn;
-
-        if (_puzzle != null && playerIn)
-        {
-            _puzzle.SetActive(true);
-            time = _timeGone;
-        }
-        else
-        {
-            if (_lights.Length != 0 && time <= 0)
-            {
-                for (int i = 0; i < _lights.Length; i++)
-                {
-                    _lights[i].SetActive(false);
-                } 
-            }
-            else
-                time -= Time.deltaTime;
-        }
+        _startDoor._playerIn = _entrar;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
+        {
+            _puzzle.SetActive(true);
             _entrar = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D other)
     {

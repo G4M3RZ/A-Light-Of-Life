@@ -5,84 +5,71 @@ using UnityEngine;
 public class ControladorLuces : MonoBehaviour {
 
     public PuzzleSolved _door;
+    private List<Lamp> _lamps;
 
-    public Lamp[] _lamps;
-    //List<int> _numerator;
-    //private int _num, _newNum;
+    public List<int> _numSelected;
+    private List<int> _randomizer;
 
-    private float _timeReaction;
-
-    void Start()
+    void Awake()
     {
-        _timeReaction = 0.1f;
-        //_num = 0;
-        //_numerator = new List<int>();
-        //OrdenDeLuces();
-    }
+        _lamps = new List<Lamp>();
 
-    void Update ()
-    {
-        ControllerLuces();
-    }
-
-    /*void OrdenDeLuces()
-    {
-        for (int i = 0; i < _lamps.Length; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            _newNum = Random.Range(0, _lamps.Length);
-            if (!_numerator.Contains(_newNum))
-            {
-                _numerator.Add(_newNum);
-            }
-            else
-            {
+            _lamps.Add(transform.GetChild(i).GetComponent<Lamp>());
+            _lamps[i]._num = i;
+        }
+
+        LightsOff();
+        OrdenDeLuces();
+        StartCoroutine(SwitchLisght());
+    }
+    void OrdenDeLuces()
+    {
+        _randomizer = new List<int>();
+
+        for (int i = 0; i < _lamps.Count; i++)
+        {
+            int _newNum = Random.Range(0, _lamps.Count);
+
+            if (!_randomizer.Contains(_newNum + 1)) 
+                _randomizer.Add(_newNum + 1); 
+            else 
                 i--;
-            }
         }
-    }*/
-
-    void ControllerLuces()
+    }
+    void LightsOff()
     {
-        if ((!_lamps[0]._lightOn && (_lamps[1]._lightOn || _lamps[2]._lightOn)) || ((_lamps[0]._lightOn && _lamps[1]._lightOn) && !_lamps[2]._lightOn))
+        _numSelected = new List<int>();
+
+        for (int i = 0; i < _lamps.Count; i++)
+            _lamps[i]._luz.SetActive(false);
+    }
+    IEnumerator SwitchLisght()
+    {
+        bool _activate = false;
+
+        do
         {
-            if (_timeReaction <= 0)
+            for (int i = 0; i < _randomizer.Count; i++)
             {
-                for (int i = 0; i < _lamps.Length; i++)
+                yield return new WaitUntil(() => _numSelected.Count > i);
+
+                if (_numSelected[i] != _randomizer[i])
                 {
-                    _lamps[i]._lightOn = false;
-                    _lamps[i]._lightEnable = false;
-                    _lamps[i]._luz.SetActive(false);
+                    i = _randomizer.Count;
+                    yield return new WaitForSeconds(0.1f);
+                    _activate = false;
+                    LightsOff();
                 }
-                //_num = 0;
-                _timeReaction = 0.1f;
+                else
+                {
+                    _activate = true;
+                }
             }
-            else
-            {
-                _timeReaction -= Time.deltaTime;
-            }
-        }
-        else if(_lamps[0]._lightOn && _lamps[1]._lightOn && _lamps[2]._lightOn)
-        {
-            _door._puzzleSolved = true;
-        }
+        } 
+        while (!_activate);
 
-        //Probar luego para randomizar
-
-        /*
-        if (_num < _lamps.Length)
-        {
-            if (_numerator[_num] == _num && _lamps[_numerator[_num]]._lightOn)
-            {
-                _num++;
-            }
-            else
-            {
-
-            }
-        }
-        else
-        {
-            
-        }*/
+        _door._puzzleSolved = true;
     }
 }
